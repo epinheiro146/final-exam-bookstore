@@ -22,8 +22,8 @@ const Update = () => {
     }, []);
 
     const handleCategorySelection = e => {
-        console.log(e);
-        setUpdatedCategory(e.value);
+        console.log(e.target.value);
+        setUpdatedCategory(e.target.value);
     };
 
     useEffect(() => {
@@ -54,9 +54,10 @@ const Update = () => {
                 {bookDetails && (
                     <div>
                         <p>Category</p>
-                        <select name="categories" id="categories" onChange={handleCategorySelection}>
+                        <select name="categories" id="categories" defaultValue={updatedCategory} onChange={handleCategorySelection}>
+                            <option disabled value={0}> -- select a genre -- </option>
                             {categories.map(category => (
-                                <option value={category.id}>{category.name}</option>
+                                <option key={`category-${category.id}`} value={category.id}>{category.name}</option>
                             ))}
                         </select>
                         <p>Title</p>

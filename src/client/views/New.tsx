@@ -19,9 +19,9 @@ const New = () => {
             .catch(error => swal("Oops!", error.message, "error"));
     }, []);
 
-    const handleCategorySelection = e => {
-        console.log(e);
-        setSelectedCategory(e.value);
+    const handleCategorySelection = (e) => {
+        console.log(e.target.value);
+        setSelectedCategory(e.target.value);
     };
 
     const handleSubmitButton = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -40,9 +40,10 @@ const New = () => {
             <h1>Add a New Book</h1>
             <div>
                 <p>Category</p>
-                <select name="categories" id="categories" onChange={handleCategorySelection}>
+                <select name="categories" id="categories" defaultValue={0} onChange={handleCategorySelection}>
+                    <option disabled value={0}> -- select a genre -- </option>
                     {categories.map(category => (
-                        <option value={category.id}>{category.name}</option>
+                        <option key={`category-${category.id}`} value={category.id}>{category.name}</option>
                     ))}
                 </select>
                 <p>Title</p>
