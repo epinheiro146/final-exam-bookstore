@@ -19,9 +19,9 @@ const Books = () => {
             <h1>Store</h1>
             {books.map(book => (
                 <div key={`book-${book.id}`}>
-                    <div className="card">
+                    <div className="card bg-black my-5">
                         <Link to={`/books/${book.id}`}>
-                            <div>
+                            <div className="text-white">
                                 <h3>{book.title}</h3>
                                 <p>{book.author}</p>
                                 <p>${book.price}</p>
