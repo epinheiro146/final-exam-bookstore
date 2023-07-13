@@ -1,5 +1,5 @@
 import * as mysql from "mysql";
-import { dbCredentials } from "../../config";
+import { dbCredentials } from "../config";
 
 const pool = mysql.createPool(dbCredentials);
 

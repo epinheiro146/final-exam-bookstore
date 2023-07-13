@@ -1,9 +1,10 @@
 export interface User {
     id?: number;
-    email: string;
-    hash: string;
+    email?: string;
+    password?: string;
     role?: string;
     _created?: string | Date;
+    name?: string;
 };
 
 export interface Category {

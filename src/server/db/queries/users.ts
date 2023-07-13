@@ -9,7 +9,7 @@ const find = (column: string, value: string) => Query<User[]>(
 
 const insert = (newUser: { name: string, email: string, password: string }) => Query<MysqlResponse>(
     `INSERT INTO users
-    SET`, [newUser]
+    SET ?`, [newUser]
 );
 
 export default {

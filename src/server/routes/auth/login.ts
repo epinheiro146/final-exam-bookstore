@@ -1,7 +1,7 @@
 import * as express from "express";
 import * as jwt from "jsonwebtoken";
 import * as passport from "passport";
-import { jwtCredentials } from "../../../config";
+import { jwtCredentials } from "../../config";
 
 const router = express.Router();
 

@@ -1,7 +1,7 @@
 import * as express from "express";
 import * as jwt from "jsonwebtoken";
 import Users from "../../db/queries/users";
-import { jwtCredentials } from "../../../config";
+import { jwtCredentials } from "../../config";
 import { generateHash } from "../../utils/passwords"
 
 const router = express.Router();
