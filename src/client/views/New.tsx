@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { Category } from "../../types";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { apiService } from "../services/api-service";
 import swal from "sweetalert";
 
@@ -13,13 +13,38 @@ const New = () => {
     const [price, setPrice] = useState("");
     const nav = useNavigate();
 
+    useEffect(() => {
+        apiService('/api/categories')
+            .then(data => setCategories(data))
+            .catch(error => swal("Oops!", error.message, "error"));
+    }, []);
+
+    const handleCategorySelection = e => {
+        console.log(e);
+        setSelectedCategory(e.value);
+    };
+
+    const handleSubmitButton = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
+        apiService("/api/books", "POST", { categoryid: selectedCategory, title: title, author: author, price: price })
+            .then((data: any) => {
+                swal("Nice!", `${data.message}`, "success");
+                nav(`/books`)
+            })
+            .catch(error => swal("Oops!", `${error.message}`, "error"));
+    };
+
     return (
         <div>
             <h1>Add a New Book</h1>
             <div>
-
                 <p>Category</p>
-                <ReactSelect options={options} onChange={handleCategorySelection} />
+                <select name="categories" id="categories" onChange={handleCategorySelection}>
+                    {categories.map(category => (
+                        <option value={category.id}>{category.name}</option>
+                    ))}
+                </select>
                 <p>Title</p>
                 <textarea value={title} onChange={e => setTitle(e.target.value)} />
                 <p>Author</p>
@@ -29,7 +54,6 @@ const New = () => {
                 <div>
                     <button onClick={handleSubmitButton}>Submit</button>
                 </div>
-
             </div>
         </div>
     );
