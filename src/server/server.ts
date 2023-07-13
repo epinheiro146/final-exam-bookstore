@@ -1,10 +1,19 @@
 import * as express from 'express';
-import apiRouter from './routes';
+import routes from './routes';
+import { configurePassport } from "./middlewares/passport-strategies.mw";
+import * as path from "path";
 
 const app = express();
 
-app.use(express.static('public'));
-app.use(apiRouter);
+configurePassport(app);
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Server listening on port: ${port}`));
+app.use(express.json());
+app.use(express.static('public'));
+app.use(routes);
+
+app.get('*', (req, res) => {
+    const htmlPage = path.join(__dirname, '../public/index.html');
+    res.sendFile(htmlPage);
+});
+
+app.listen(3000);
